@@ -1,88 +1,361 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gobinda Das | Portfolio</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gobinda Das | Software Developer Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    /* Reset & Base */
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      --bg: #f9fafb;
+      --text: #222;
+      --primary: #0077b6;
+      --primary-dark: #023e8a;
+      --card-bg: white;
+      --card-shadow: rgba(0,0,0,0.1);
+      --input-bg: #fff;
+    }
+    a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    a:hover {
+      color: var(--primary-dark);
+    }
+    .container {
+      max-width: 900px;
+      width: 100%;
+      background: var(--card-bg);
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px var(--card-shadow);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+      animation-delay: 0.2s;
+    }
+    header h1 {
+      font-weight: 700;
+      font-size: 2.8rem;
+      color: var(--primary-dark);
+      margin-bottom: 10px;
+    }
+    header p {
+      font-weight: 400;
+      font-size: 1.1rem;
+      color: #555;
+    }
+    h2 {
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin-bottom: 15px;
+      border-bottom: 2px solid #caf0f8;
+      padding-bottom: 5px;
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+    }
+    #about p, #skills .skill-badge, #projects li, #social a, footer {
+      opacity: 0;
+      animation: fadeInUp 0.7s forwards;
+    }
+    #about p {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+      color: var(--text);
+      animation-delay: 0.4s;
+    }
+    #skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 30px;
+      animation-delay: 0.5s;
+    }
+    .skill-badge {
+      background: #caf0f8;
+      padding: 8px 15px;
+      border-radius: 25px;
+      font-weight: 600;
+      color: var(--primary-dark);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      cursor: default;
+      animation-delay: 0.6s;
+    }
+    #projects ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    #projects li {
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+      background: #e0f7fa;
+      padding: 15px 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease;
+      animation-delay: 0.7s;
+    }
+    #projects li:hover {
+      transform: translateY(-5px);
+      background: #b2ebf2;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    }
+    #projects a {
+      font-weight: 700;
+      color: var(--primary-dark);
+    }
+    #social {
+      margin-top: 40px;
+      text-align: center;
+      animation-delay: 0.8s;
+    }
+    #social a {
+      margin: 0 12px;
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
+    #social a:hover {
+      transform: scale(1.3);
+    }
+    #social img {
+      width: 36px;
+      height: 36px;
+      filter: grayscale(0.2);
+      transition: filter 0.3s ease;
+    }
+    #social a:hover img {
+      filter: grayscale(0);
+    }
+    footer {
+      margin-top: 50px;
+      font-size: 0.9rem;
+      color: #888;
+      text-align: center;
+      animation-delay: 0.9s;
+    }
+    /* Contact Form */
+    #contact {
+      margin-top: 50px;
+      animation-delay: 1s;
+    }
+    #contact form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    #contact label {
+      font-weight: 600;
+      color: var(--primary-dark);
+    }
+    #contact input, #contact textarea {
+      padding: 12px 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+      background: var(--input-bg);
+      color: var(--text);
+      resize: vertical;
+      transition: border-color 0.3s ease;
+    }
+    #contact input:focus, #contact textarea:focus {
+      border-color: var(--primary);
+      outline: none;
+    }
+    #contact button {
+      background: var(--primary);
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 25px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      font-weight: 700;
+      transition: background-color 0.3s ease;
+    }
+    #contact button:hover {
+      background: var(--primary-dark);
+    }
+    /* Dark Mode Toggle */
+    #dark-mode-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--primary);
+      border: none;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 700;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      transition: background-color 0.3s ease;
+      z-index: 1000;
+    }
+    #dark-mode-toggle:hover {
+      background: var(--primary-dark);
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      to {opacity: 1;}
+    }
+    @keyframes fadeInUp {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .container {
+        padding: 25px;
+      }
+      header h1 {
+        font-size: 2rem;
+      }
+      #skills {
+        justify-content: center;
+      }
+    }
+
+    /* Dark Mode Styles */
+    body.dark {
+      --bg: #121212;
+      --text: #e0e0e0;
+      --primary: #90caf9;
+      --primary-dark: #42a5f5;
+      --card-bg: #1e1e1e;
+      --card-shadow: rgba(255, 255, 255, 0.05);
+      --input-bg: #333;
+    }
+  </style>
 </head>
+<body>
+  <button id="dark-mode-toggle" aria-label="Toggle dark mode">🌙 Dark Mode</button>
 
-<body class="bg-gray-100 text-gray-900">
-  <!-- Navbar -->
-  <nav class="bg-white shadow fixed w-full top-0 z-50">
-    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-      <h1 class="text-xl font-bold">Gobinda Das</h1>
-      <ul class="flex space-x-6">
-        <li><a href="#about" class="hover:text-blue-500">About</a></li>
-        <li><a href="#skills" class="hover:text-blue-500">Skills</a></li>
-        <li><a href="#projects" class="hover:text-blue-500">Projects</a></li>
-        <li><a href="#contact" class="hover:text-blue-500">Contact</a></li>
+  <div class="container">
+    <header>
+      <h1>Gobinda Das</h1>
+      <p>Passionate Software Developer | Cloud Computing Enthusiast | Python Expert</p>
+    </header>
+
+    <section id="about">
+      <h2>About Me</h2>
+      <p>Hello! I am Gobinda Das, a software developer from Kolkata, India. I love building impactful applications, learning new technologies, and contributing to open source. Currently, I’m focusing on Cloud Computing and backend development.</p>
+    </section>
+
+    <section id="skills">
+      <h2>Skills & Tools</h2>
+      <div class="skill-badge">Python</div>
+      <div class="skill-badge">HTML5</div>
+      <div class="skill-badge">CSS3</div>
+      <div class="skill-badge">JavaScript</div>
+      <div class="skill-badge">MySQL</div>
+      <div class="skill-badge">AWS</div>
+      <div class="skill-badge">Firebase</div>
+      <div class="skill-badge">Git</div>
+      <div class="skill-badge">Matlab</div>
+      <div class="skill-badge">Pandas</div>
+      <div class="skill-badge">Scikit-Learn</div>
+    </section>
+
+    <section id="projects">
+      <h2>Projects</h2>
+      <ul>
+        <li><a href="https://github.com/Gobindo07/Emergency-Service-Hiring-Platform" target="_blank" rel="noopener noreferrer">Emergency Service Hiring Platform</a> - A full-stack web application to connect users with emergency service providers.</li>
+        <!-- Add more projects here -->
+        <li><a href="https://github.com/Gobindo07/Another-Project" target="_blank" rel="noopener noreferrer">Another Project</a> - Description of another project you want to showcase.</li>
       </ul>
-    </div>
-  </nav>
+    </section>
 
-  <!-- Hero Section -->
-  <section class="pt-24 pb-16 bg-blue-600 text-white text-center">
-    <h2 class="text-4xl font-bold mb-2">Gobinda Das</h2>
-    <p class="text-xl">Aspiring Software Developer | Python Enthusiast</p>
-    <p class="mt-4 text-lg">Focused on backend development, GATE CSE prep, and career-building projects.</p>
-    <a href="/resume.pdf" download class="mt-6 inline-block bg-white text-blue-600 px-6 py-2 rounded-full font-semibold hover:bg-blue-100">Download Resume</a>
-  </section>
+    <section id="contact">
+      <h2>Contact Me</h2>
+      <form id="contact-form" onsubmit="return handleSubmit(event)">
+        <label for="name">Name *</label>
+        <input type="text" id="name" name="name" required placeholder="Your name" />
+        
+        <label for="email">Email *</label>
+        <input type="email" id="email" name="email" required placeholder="Your email" />
+        
+        <label for="message">Message *</label>
+        <textarea id="message" name="message" rows="5" required placeholder="Your message"></textarea>
+        
+        <button type="submit">Send Message</button>
+      </form>
+    </section>
 
-  <!-- About Section -->
-  <section id="about" class="py-16 px-6 max-w-4xl mx-auto">
-    <h3 class="text-3xl font-bold mb-4 text-center">About Me</h3>
-    <p class="text-lg text-gray-700 leading-7">
-      I'm Gobinda Das (Kanai), a Computer Science Engineering graduate with a CGPA of 8.5. I specialize in Python and backend development using Flask. Currently, I am preparing for the GATE exam while also working on projects to build a solid portfolio. I am passionate about solving real-world problems with software and eager to join a top tech company.
-    </p>
-  </section>
+    <section id="social">
+      <h2>Connect with Me</h2>
+      <a href="https://github.com/Gobindo07" target="_blank" rel="noopener noreferrer" title="GitHub">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/github.svg" alt="GitHub" />
+      </a>
+      <a href="https://www.linkedin.com/in/gobinda-das-677bb4257/" target="_blank" rel="noopener noreferrer" title="LinkedIn">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/linkedin.svg" alt="LinkedIn" />
+      </a>
+      <a href="mailto:gddas11102@gmail.com" title="Email">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/gmail.svg" alt="Email" />
+      </a>
+    </section>
 
-  <!-- Skills Section -->
-  <section id="skills" class="py-16 bg-white px-6 max-w-4xl mx-auto">
-    <h3 class="text-3xl font-bold mb-4 text-center">Skills</h3>
-    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 text-center">
-      <span class="bg-blue-100 py-2 rounded">Python</span>
-      <span class="bg-blue-100 py-2 rounded">Flask</span>
-      <span class="bg-blue-100 py-2 rounded">SQL</span>
-      <span class="bg-blue-100 py-2 rounded">Git & GitHub</span>
-      <span class="bg-blue-100 py-2 rounded">REST APIs</span>
-      <span class="bg-blue-100 py-2 rounded">Docker (Learning)</span>
-      <span class="bg-blue-100 py-2 rounded">System Design</span>
-      <span class="bg-blue-100 py-2 rounded">Data Structures</span>
-      <span class="bg-blue-100 py-2 rounded">OOPs Concepts</span>
-    </div>
-  </section>
+    <footer>
+      &copy; 2025 Gobinda Das. All rights reserved.
+    </footer>
+  </div>
 
-  <!-- Projects Section -->
-  <section id="projects" class="py-16 px-6 max-w-4xl mx-auto">
-    <h3 class="text-3xl font-bold mb-6 text-center">Projects</h3>
-    <div class="bg-white shadow-lg rounded-xl p-6 mb-4">
-      <h4 class="text-xl font-semibold">Emergency Service Hiring Platform</h4>
-      <p class="text-gray-700 mt-2">
-        A professional web platform that allows users to request emergency services such as ambulance, electrician, and plumber. Built using Flask, HTML, CSS, and SQL. It includes an attractive homepage, a functional request form with database integration, and a confirmation page. UI/UX enhancements such as animations, hover effects, icons, and responsive design are implemented.
-      </p>
-      <a href="https://github.com/Gobindo07/Emergency-Service-Hiring-Platform" class="text-blue-500 underline mt-2 inline-block" target="_blank">View on GitHub</a>
-    </div>
-  </section>
+  <script>
+    // Dark mode toggle logic
+    const toggleBtn = document.getElementById('dark-mode-toggle');
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      if(document.body.classList.contains('dark')) {
+        toggleBtn.textContent = '☀️ Light Mode';
+      } else {
+        toggleBtn.textContent = '🌙 Dark Mode';
+      }
+    });
 
-  <!-- Contact Section -->
-  <section id="contact" class="py-16 px-6 max-w-4xl mx-auto">
-    <h3 class="text-3xl font-bold mb-4 text-center">Contact</h3>
-    <p class="text-center text-lg text-gray-700">Feel free to reach out for collaborations or opportunities.</p>
-    <div class="flex flex-col items-center mt-6 space-y-2">
-      <p><strong>Email:</strong> gddas11102@gmail.com</p>
-      <p><strong>Phone:</strong> 6290419287</p>
-      <p><a href="https://www.linkedin.com/in/gobinda-das-677bb4257/" class="text-blue-500 underline" target="_blank">LinkedIn</a></p>
-      <p><a href="https://github.com/Gobindo07" class="text-blue-500 underline" target="_blank">GitHub</a></p>
-    </div>
-  </section>
+    // Contact form submit handler
+    function handleSubmit(event) {
+      event.preventDefault();
+      const name = event.target.name.value.trim();
+      const email = event.target.email.value.trim();
+      const message = event.target.message.value.trim();
 
-  <!-- Footer -->
-  <footer class="bg-gray-200 py-6 text-center text-sm">
-    © 2025 Gobinda Das. All rights reserved.
-  </footer>
+      if (!name || !email || !message) {
+        alert('Please fill out all fields.');
+        return false;
+      }
+
+      // Basic email validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if(!emailRegex.test(email)) {
+        alert('Please enter a valid email address.');
+        return false;
+      }
+
+      // Here you would typically send form data to your backend or email service
+      alert(`Thank you, ${name}! Your message has been received.`);
+      event.target.reset();
+      return true;
+    }
+  </script>
 </body>
-
 </html>
